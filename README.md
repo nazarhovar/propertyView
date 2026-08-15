@@ -237,10 +237,9 @@ mvn spring-boot:run
 
 To run the application with PostgreSQL:
 
-mvn spring-boot:run -Dspring-boot.run.profiles=postgres
+The PostgreSQL password must be provided with the $env:DB_PASSWORD="your_password"
 
-The PostgreSQL password must be provided through the `DB_PASSWORD`
-environment variable.
+mvn spring-boot:run "-Dspring-boot.run.profiles=postgres"
 
 ## Testing
 
