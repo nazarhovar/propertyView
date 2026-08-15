@@ -1,8 +1,8 @@
 # Property View
 
-RESTful API application for managing hotels.
+RESTful API for managing hotels.
 
-The application provides functionality for retrieving hotels, searching by different parameters, creating hotels, adding amenities  and histograms.
+The application provides functionality for retrieving hotels, searching by different parameters, creating hotels, adding amenities and histograms.
 
 ## Technologies
 
@@ -47,7 +47,7 @@ The application runs on port `8092`.
 Swagger UI:
 
 ```text
-http://localhost:8092/swagger-ui/index.html#
+http://localhost:8092/swagger-ui/index.html
 ```
 
 ## API Endpoints
@@ -179,13 +179,7 @@ The application supports both H2 and PostgreSQL databases.
 
 H2 is used by default.
 
-The default profile is:
-
-```properties
-spring.profiles.active=h2
-```
-
-Run the application:
+Run the application with:
 
 ```bash
 mvn spring-boot:run
@@ -195,26 +189,12 @@ Liquibase automatically creates and updates the required database schema.
 
 ### PostgreSQL
 
-The application can be quickly switched from H2 to PostgreSQL.
+The application can also be run with PostgreSQL.
 
 Create a PostgreSQL database named:
 
 ```text
 propertyview
-```
-
-Run the application with the PostgreSQL profile:
-
-```properties
-mvn spring-boot:run -Dspring-boot.run.profiles=postgres
-```
-
-The PostgreSQL password is provided through the `DB_PASSWORD` environment variable.
-
-For example:
-
-```text
-DB_PASSWORD=your_password
 ```
 
 The default PostgreSQL connection settings are:
@@ -224,22 +204,23 @@ URL: jdbc:postgresql://localhost:5432/propertyview
 Username: postgres
 ```
 
-Liquibase automatically creates the required database schema when the application starts.
+The PostgreSQL password is provided through the `DB_PASSWORD` environment variable.
 
+#### Windows PowerShell
 
-## Switching Between Databases
+Set the database password:
 
-H2 is used by default.
+```powershell
+$env:DB_PASSWORD="your_password"
+```
 
-To run the application with H2:
+Then run the application with the PostgreSQL profile:
 
-mvn spring-boot:run
-
-To run the application with PostgreSQL:
-
-The PostgreSQL password must be provided with the $env:DB_PASSWORD="your_password"
-
+```powershell
 mvn spring-boot:run "-Dspring-boot.run.profiles=postgres"
+```
+
+Liquibase automatically creates and updates the required database schema when the application starts.
 
 ## Testing
 
