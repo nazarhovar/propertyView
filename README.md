@@ -203,10 +203,10 @@ Create a PostgreSQL database named:
 propertyview
 ```
 
-Activate the PostgreSQL profile:
+Run the application with the PostgreSQL profile:
 
 ```properties
-spring.profiles.active=postgres
+mvn spring-boot:run -Dspring-boot.run.profiles=postgres
 ```
 
 The PostgreSQL password is provided through the `DB_PASSWORD` environment variable.
@@ -229,17 +229,18 @@ Liquibase automatically creates the required database schema when the applicatio
 
 ## Switching Between Databases
 
-The database can be switched by changing the active Spring profile:
+H2 is used by default.
 
-```properties
-spring.profiles.active=h2
-```
+To run the application with H2:
 
-or:
+mvn spring-boot:run
 
-```properties
-spring.profiles.active=postgres
-```
+To run the application with PostgreSQL:
+
+mvn spring-boot:run -Dspring-boot.run.profiles=postgres
+
+The PostgreSQL password must be provided through the `DB_PASSWORD`
+environment variable.
 
 ## Testing
 
