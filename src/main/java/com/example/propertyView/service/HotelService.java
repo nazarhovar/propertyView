@@ -224,39 +224,41 @@ public class HotelService {
     }
 
     public Map<String, Long> getHistogram(String param) {
+
+        if (!param.equalsIgnoreCase("brand")
+                && !param.equalsIgnoreCase("city")
+                && !param.equalsIgnoreCase("country")
+                && !param.equalsIgnoreCase("amenities")) {
+
+            throw new IllegalArgumentException(
+                    "Unsupported histogram parameter: " + param
+            );
+        }
+
         List<Hotel> hotels = hotelRepository.findAll();
         Map<String, Long> result = new HashMap<>();
 
         for (Hotel hotel : hotels) {
             if (param.equalsIgnoreCase("brand")) {
-                if (hotel.getBrand() != null) {
-                    result.merge(
-                            hotel.getBrand(),
-                            1L,
-                            Long::sum
-                    );
-                }
+                result.merge(
+                        hotel.getBrand(),
+                        1L,
+                        Long::sum
+                );
 
             } else if (param.equalsIgnoreCase("city")) {
-                if (hotel.getAddress() != null &&
-                        hotel.getAddress().getCity() != null) {
-                    result.merge(
-                            hotel.getAddress().getCity(),
-                            1L,
-                            Long::sum
-                    );
-                }
+                result.merge(
+                        hotel.getAddress().getCity(),
+                        1L,
+                        Long::sum
+                );
 
             } else if (param.equalsIgnoreCase("country")) {
-                if (hotel.getAddress() != null &&
-                        hotel.getAddress().getCountry() != null) {
-                    result.merge(
-                            hotel.getAddress().getCountry(),
-                            1L,
-                            Long::sum
-                    );
-                }
-
+                result.merge(
+                        hotel.getAddress().getCountry(),
+                        1L,
+                        Long::sum
+                );
             } else if (param.equalsIgnoreCase("amenities")) {
                 for (Amenity amenity : hotel.getAmenities()) {
                     result.merge(
@@ -265,10 +267,6 @@ public class HotelService {
                             Long::sum
                     );
                 }
-            } else {
-                throw new IllegalArgumentException(
-                        "Unsupported histogram parameter: " + param
-                );
             }
         }
 
